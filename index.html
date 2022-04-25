@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8"> 
+        <meta name="description" content="Абсолютно унікальний в своєму роді інструмент для моніторингу повітряної тривоги по областям України."/>
+        <Title>Alerter</Title>
+        <link rel="stylesheet" href="styles.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
+    </head>
+    <body>
+        <section class="header">
+            <div class="header-box">
+                <h1>Alerter™</h1>
+                <button id="status" class="hidden">connecting</button>
+                <section class="buttons collapsed">
+                    <div class="content-box">
+                        <button id="toggle-update-btn" class="btn">Toggle update</button>
+                        <button id="update-btn" class="btn">Manual update</button>
+                        <button id="add-btn" class="btn">Add</button>
+                        <button id="remove-btn" class="btn">Remove</button>
+                    </div>
+                </section>
+            </div>
+        </section>
+        <!-- <button id="update-btn" class="btn">Update</button> -->
+       
+        <div class="content-box">
+            <ul id="alerts-list" class="list">
+                <li class="list-item" id="test1">
+                    <span class="icon">🚨 </span>
+                    <div class="location with-tooltip">
+                        <span class="location-text">Тестове повідомлення Тестове повідомлення Тестове повідомлення </span>
+                        <span class="tooltip-text">Область</span>
+                    </div>
+                    <div class="duration with-tooltip">
+                        <span class="duration-text">тривалість</span>
+                        <span class="tooltip-text">Тривалість</span>
+                    </div>
+                </li>
+                <!-- <li class="empty-placeholder"><p>Все спокійно <span>🎉</span></p></li> -->
+            </ul>
+        </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="humanize-duration.js" charset="utf-8"></script>
+    <script src="https://momentjs.com/downloads/moment-with-locales.js" charset="utf-8"></script>
+    <script src="script.js" charset="utf-8" defer ></script>
+</html>
