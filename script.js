@@ -76,11 +76,11 @@ function createListItem(id, iconString, locationString, durationString){
         text:  `${iconString} `
     });
 
-    var location = $('<span/>', {
+    var location = $('<div/>', {
         class: 'location with-tooltip',
     });
 
-    var locationText = $('<span/>', {
+    var locationText = $('<p/>', {
         class: 'location-text',
         text: locationString
     });
