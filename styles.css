@@ -110,13 +110,17 @@ span.visible{
     transition: width 500ms ease;
 }
 .list-item{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
     background: #505050;
     color: #FFFFFF;
     border-radius: 6px;
     box-shadow: 0 0 9px 0 rgb(0 0 0 / 10%);
     margin-bottom: 10px;
     padding: 15px 25px;
-    height: 35px;
+    min-height: 35px;
     max-height: 150px;
     transition: height 500ms ease,
                 padding 500ms ease,
@@ -134,15 +138,17 @@ span.visible{
 .list-item .icon{
     display: inline;
     line-height: 1;
+    padding-right: 10px;
 }
 .list-item .location{
     display: inline;
-    background: white;
+    background: #ab3030;
+    width: 620px;
 }
 .list-item .location-text{
-    overflow: hidden;
+    /* overflow: hidden;
     white-space: nowrap;
-    text-overflow: clip;
+    text-overflow: clip; */
     -webkit-touch-callout: none; /* Safari */
     -webkit-user-select: none; /* Chrome */     
             user-select: none; 
@@ -150,10 +156,13 @@ span.visible{
     background: #ab3030;
     font-weight: 500;
     font-size: 1em;
+    max-width: 100%;
+    padding: 0 5px;
+    margin: 0;
 }
 .list-item .duration{
     display: block;
-    padding-left: 25px;
+    padding-left: 30px;
 }
 .list-item .duration-text{
     display: block;
@@ -180,9 +189,10 @@ span.visible{
     opacity: 0;
     position: absolute;
     z-index: 999;
-    margin-top: -1.5%;
     margin-left: 10px;
     transition: opacity 200ms ease-in-out;
+    top: calc(50% - 16px);
+    right: -160px;
 }
 .with-tooltip .tooltip-text::after{
     content: "";
