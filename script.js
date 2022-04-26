@@ -39,18 +39,14 @@ $(function(){
     });
 
     $('#add-btn').on('click', function(){
-        var item = createListItem('test', '🚨', 'Тестове повідомлення', 'тривалість');
-        item.prependTo('#alerts-list');
-
-        setTimeout(function(){ item.removeClass('collapsed') }, 5);
+        var item = $(createListItem('test', '🚨', 'Тестове повідомлення', 'тривалість'));
+        fadeInListItem(item);
         updateUI();
     });
 
     $('#remove-btn').on('click', async function(){
-        var $item = $('#alerts-list').children('.list-item:not(.collapsed):first').addClass('collapsed');
-        setTimeout(function(){
-            $item.remove();
-        }, 500);
+        var $item = $('#alerts-list').children('.list-item:not(.collapsed):first');
+        fadeOutListItem($item);
         updateUI();
     });
 
@@ -67,6 +63,19 @@ $(function(){
     updateAlerts();
     startUpdate(uiUpdateTimeout, apiFetchTimeout);
 });
+
+function fadeInListItem(item){
+    item.addClass('collapsed');
+    item.prependTo('#alerts-list');
+    setTimeout(function(){ item.removeClass('collapsed') }, 5);
+}
+
+function fadeOutListItem(item){
+    item.addClass('collapsed');
+    setTimeout(function(){
+        item.remove();
+    }, 500);
+}
 
 function createListItem(id, iconString, locationString, durationString){
     var elem = $('<li/>', {
@@ -164,37 +173,28 @@ function updateUI(){
 
     $list.children('li:not(.collapsed)li:not(.empty-placeholder)').toArray().forEach(el => {
         if(updating && !alertsList.some(alert => alert.id == el.id) && alertsList.length != 0){
-            setTimeout(function(){
-                el.classList.add("collapsed");
-            }, 100);
-            
-            setTimeout(function(){
-                el.remove();
-            }, 1000);
+            fadeOutListItem($(el));
         }
     });
 
     alertsList.forEach(alert => {
         var alert = ParseJson(alert);
         var $item = $list.children(`#${alert.id}:not(.collapsed)`);
-        // var startDate = moment.now() - moment(alert.started_at);
         var start = moment(alert.started_at).calendar();
         var startFromNow = moment(alert.started_at).fromNow();
-        // var humanizedDuration = humanizeDuration(startDate, { language: "uk", largest: 2, units: ['d', 'h', 'm', 's'], round: true});       
-        if($item[0]){
-            $item.find('.duration-text').text(`${start} (${startFromNow})`);
+        if($item.length){
+            $item.find('.duration-text')
+                .text(`${start} (${startFromNow})`);
         }
         else if(updating){
             var item = createListItem(alert.id, '🚨', alert.location_title, `${start} (${startFromNow})`);
-            $list.prepend(item);
-            setTimeout(function(){
-                item.removeClass('collapsed');
-            }, 50);
+            fadeInListItem(item);
         }
     });
 
+    // Just for fun :)
     if(alertsList.some(alert => alert.location_title.includes("ранків"))){
-        console.info('запор');
+        console.info('key');
         $('.header-box h1').text('Катя в небезпеці!™');
         //Франківськ підвал
     }
@@ -202,6 +202,7 @@ function updateUI(){
         $('.header-box h1').text('Alerter™');
     }
 
+    // Adding message if there are no alerts
     if($list.children('li').length == 0)
     {
         $list.append('<li class="empty-placeholder collapsed"><p>Все спокійно <span>🎉</span></p></li>');

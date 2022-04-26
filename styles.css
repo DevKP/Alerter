@@ -22,6 +22,10 @@ body{
     font-size: 18px;
     font-family: 'Roboto', sans-serif;
 }
+
+/* Header section
+===============================*/
+
 .header{
     background-color: var(--dark-panel);
     border-bottom: var(--dark-border) solid 1px;
@@ -49,6 +53,10 @@ body{
 h1.alert{
     color: red;
 }
+
+/* Status blob
+===============================*/
+
 #status{
     font-family: 'Roboto', sans-serif;
     background: var(--dark-status-ok);
@@ -60,6 +68,7 @@ h1.alert{
     border: var(--dark-border) solid 1px;
     border-radius: 10px;
     overflow: hidden;
+    opacity: 100;
     transition: all 200ms ease;
 }
 
@@ -69,6 +78,7 @@ h1.alert{
     margin-bottom: 0px;
     margin-top: 0px;
     height: 0px;
+    opacity: 0;
 }
 #status.sync-error{
     background: var(--dark-status-error);
@@ -82,9 +92,8 @@ h1.alert{
     transition: width 500ms ease;
 }
 
-span.visible{
-    opacity: 100%;
-}
+/* Alerts list
+===============================*/
 
 #alerts-list{
     font-family: 'Montserrat', sans-serif;
@@ -161,6 +170,10 @@ span.visible{
     color: var(--dark-secondary-font);
     font-size: 0.7em;
 }
+
+/* Tooltip
+===============================*/
+
 .with-tooltip .tooltip-text{
     font-size: 0.8rem;
     width: 100px;
@@ -191,6 +204,9 @@ span.visible{
     opacity: 1;
 }
 
+/* Placeholder list element
+===============================*/
+
 .empty-placeholder{
     overflow: hidden;
     height: 50px;
@@ -215,9 +231,15 @@ span.visible{
     opacity: 0;
 }
 
+/* Debug buttons
+===============================*/
+
 button.btn{
     color: var(--dark-primary-font);
     border: var(--dark-border) solid 1px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8em; 
+    font-weight: 300;
     padding: 5px 10px;
     text-align: center;
     margin: 2px 2px;
@@ -235,12 +257,16 @@ button.btn{
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
+    font-weight: 200;
     transition: all 0.5s ease-in-out;
 }
 
 .buttons .content-box{
     margin-bottom: 0px;
 }
+
+/* Responsive
+===============================*/
 
 @media screen and (max-width: 650px) {
     #alerts-list{
