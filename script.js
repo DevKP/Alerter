@@ -3,6 +3,8 @@ var uiIntervalNum;
 var alertsList;
 var updating = false;
 
+const apiUrl = 'https://alerter.online/api/Alerts/Active';
+
 $(function(){
 "use strict";
     moment.locale('uk');
@@ -10,13 +12,13 @@ $(function(){
     const apiFetchTimeout = 3000;
 
     // ------------TESTING-----------------
-    var item = createListItem('test', '🚨', 'Тестове повідомлення', 'тривалість');
-    item.prependTo('#alerts-list');
-    setTimeout(function(){ item.removeClass('collapsed') }, 5);
+    // var item = createListItem('test', '🚨', 'Тестове повідомлення', 'тривалість');
+    // item.prependTo('#alerts-list');
+    // setTimeout(function(){ item.removeClass('collapsed') }, 5);
 
-    var item1 = createListItem('test1', '🚨', 'Тестове повідомлення Тестове повідомлення Тестове повідомлення ', 'тривалість');
-    item1.prependTo('#alerts-list');
-    setTimeout(function(){ item1.removeClass('collapsed') }, 5);
+    // var item1 = createListItem('test1', '🚨', 'Тестове повідомлення Тестове повідомлення Тестове повідомлення ', 'тривалість');
+    // item1.prependTo('#alerts-list');
+    // setTimeout(function(){ item1.removeClass('collapsed') }, 5);
     // -------------------------------------
 
     $('#toggle-update-btn').on('click', function(){
@@ -62,8 +64,8 @@ $(function(){
 
     ShowStatus();
     setInterval(updateUI, uiUpdateTimeout)
-    // updateAlerts();
-    // startUpdate(uiUpdateTimeout, apiFetchTimeout);
+    updateAlerts();
+    startUpdate(uiUpdateTimeout, apiFetchTimeout);
 });
 
 function createListItem(id, iconString, locationString, durationString){
@@ -77,7 +79,7 @@ function createListItem(id, iconString, locationString, durationString){
     });
 
     var location = $('<div/>', {
-        class: 'location with-tooltip',
+        class: 'location',//with-tooltip
     });
 
     var locationText = $('<p/>', {
@@ -86,7 +88,7 @@ function createListItem(id, iconString, locationString, durationString){
     });
 
     var duration = $('<span/>', {
-        class: 'duration with-tooltip'
+        class: 'duration'//with-tooltip
     });
 
     var durationText = $('<span/>', {
@@ -105,8 +107,8 @@ function createListItem(id, iconString, locationString, durationString){
     });
 
     icon.appendTo(elem);
-    location.append(locationText).append(locationTooltip).appendTo(elem);
-    duration.append(durationText).append(durationTooltip).appendTo(elem);
+    location.append(locationText).appendTo(elem);//.append(locationTooltip)
+    duration.append(durationText).appendTo(elem);//.append(durationTooltip)
 
     return elem;
 }
@@ -141,7 +143,7 @@ async function updateAlerts(){
 async function getAlertList()
 {
     try {
-        const response = await fetch("https://alerter.online/Alerts/Active/");
+        const response = await fetch(apiUrl);
         if(!response.ok){
             ErrorStatus(response.status + ' ' + response.statusText);
             return;
